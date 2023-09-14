@@ -1,0 +1,22 @@
+<html>
+<body>
+  <h1>ユーザー検索</h1>
+  <!-- methodをgetにしちゃうと、ボディがクエリパラメータになっちゃうね。サーチくらいならまだ良いか。-->
+  <!-- 自作サーバーにクエリストリングの処理を入れてないから、postにした。サーチは本来ならgetが良い。-->
+  <button id="button">検索</button>
+  <script>
+    document.getElementById("button").addEventListener("click",() => {
+      const request = new XMLHttpRequest();
+      // onreadystatechangeプロパティは、XMLHttpRequestオブジェクトの状態が変化するたびに実行される関数を指定します：
+      request.onreadystatechange = () => {
+        // readyStateプロパティが4で、statusプロパティが200のとき、応答はreadyである：
+        if (request.readyState == 4 && request.status == 200) {
+          alert(request.responseText);
+        }
+      }
+      request.open("GET", "http://localhost:3030/api/users/search", true);
+      request.send();
+    })
+  </script>
+</body>
+</html>
